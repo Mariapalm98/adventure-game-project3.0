@@ -5,8 +5,11 @@ public class Player extends AbstractCharacter {
     private boolean defeatedEnemy;
     private boolean openedChest;
 
-    public Player(String name, int health, int score, int strength) {
-        super(name, health, score, strength);
+    private Player (Builder builder){
+        super(builder.name, builder.health, builder.score, builder.strength);
+        this.foundKey = builder.foundKey;
+        this.defeatedEnemy = builder.defeatedEnemy;
+        this.openedChest = builder.openedChest;
     }
 
     public boolean hasFoundKey() {
@@ -45,5 +48,48 @@ public class Player extends AbstractCharacter {
         if (!target.isAlive()) {
             addScore(50);
         }
+    }
+    // skapar en builder med dess attribut
+    public static class Builder{
+        private String name;
+        private int health;
+        private int score;
+        private int strength;
+        private boolean foundKey;
+        private boolean defeatedEnemy;
+        private boolean openedChest;
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+        public Builder health(int health) {
+            this.health = health;
+            return this;
+        }
+        public Builder score(int score) {
+            this.score = score;
+            return this;
+        }
+        public Builder strength(int strength) {
+            this.strength = strength;
+            return this;
+        }
+        public Builder foundKey(boolean foundKey) {
+            this.foundKey = foundKey;
+            return this;
+        }
+        public Builder defefeatedEnemy(boolean defeatedEnemy){
+            this.defeatedEnemy = defeatedEnemy;
+            return this;
+        }
+        public Builder openedChest(boolean openedChest) {
+            this.openedChest = openedChest;
+            return this;
+        }
+        public Player build(){
+            return new Player(this);
+        }
+
     }
 }
